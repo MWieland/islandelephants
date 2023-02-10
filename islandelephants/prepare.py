@@ -11,6 +11,7 @@ def run(
     annotations_dir,
     audio_to_annotations_csv,
     out_dir,
+    label_column_name,
     negative_class_label,
     audio_settings,
     train_test_split,
@@ -25,7 +26,7 @@ def run(
             l[0], l[1] = l[1], l[0]
         if Path(Path(audio_dir) / Path(l[0])).is_file() and Path(Path(annotations_dir) / Path(l[1])).is_file():
             # only add sample if audio and annotations files exist
-            audio_to_annotations_list.append([Path(l[0]).stem, l[1]])
+            audio_to_annotations_list.append([l[0], l[1]])
         else:
             logging.info(f"Skipping sample {l}. Audio or annotations file does not exist.")
 
@@ -45,14 +46,19 @@ def run(
         out_dirs = [out_dir]
         audio_to_annotations_lists = [audio_to_annotations_list]
 
-    # do the actual prprocessing
+    # TODO: remove this block - only temporary to test with few samples
+    audio_to_annotations_lists[0] = audio_to_annotations_lists[0][:3]
+    audio_to_annotations_lists[1] = audio_to_annotations_lists[1][:2]
+
+    # do the actual preprocessing
     for i in range(len(out_dirs)):
         clip_counts = preprocess.from_selection_table_map(
             audio_settings=audio_settings,
             audio_seltab_list=audio_to_annotations_lists[i],
-            audio_dir=audio_dir,
+            audio_root=audio_dir,
             seltab_root=annotations_dir,
             output_root=out_dirs[i],
             negative_class_label=negative_class_label,
+            label_column_name=label_column_name,
         )
         [logging.info(f"{label:<10s}: {count:d}") for label, count in clip_counts.items()]

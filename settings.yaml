@@ -9,6 +9,7 @@ PREPARE:
   ANNOTATIONS_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/annotations"
   AUDIO_TO_ANNOTATIONS_CSV: "/media/datadrive/Datasets/referencedata/islandelephants/sclts_to_wav.csv"
   OUT_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/prepared"
-  NEGATIVE_CLASS_LABEL: "Background"
-  AUDIO_SETTINGS: {"clip_length": 2.0, "clip_advance": 0.5, "desired_fs": 48000}
+  LABEL_COLUMN_NAME: "tag"
+  NEGATIVE_CLASS_LABEL: "background"
+  AUDIO_SETTINGS: {"clip_length": 2.0, "clip_advance": 0.5, "desired_fs": 1000}
   TRAIN_TEST_SPLIT: [0.8, 0.2]  # if null dataset is not split

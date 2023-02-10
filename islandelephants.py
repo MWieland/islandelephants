@@ -81,6 +81,7 @@ if args.prepare:
         annotations_dir=settings["PREPARE"]["ANNOTATIONS_DIR"],
         audio_to_annotations_csv=settings["PREPARE"]["AUDIO_TO_ANNOTATIONS_CSV"],
         out_dir=settings["PREPARE"]["OUT_DIR"],
+        label_column_name=settings["PREPARE"]["LABEL_COLUMN_NAME"],
         negative_class_label=settings["PREPARE"]["NEGATIVE_CLASS_LABEL"],
         audio_settings=settings["PREPARE"]["AUDIO_SETTINGS"],
         train_test_split=settings["PREPARE"]["TRAIN_TEST_SPLIT"],
