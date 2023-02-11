@@ -88,10 +88,21 @@ if args.prepare:
     )
 
 if args.train:
-    train.run()
+    train.run(
+        train_dir=settings["TRAIN"]["TRAIN_DIR"],
+        validation_split=settings["TRAIN"]["VALIDATION_SPLIT"],
+        max_samples_per_class=settings["TRAIN"]["MAX_SAMPLES_PER_CLASS"],
+        audio_settings=settings["PREPARE"]["AUDIO_SETTINGS"],
+        spectral_settings=settings["PREPARE"]["SPECTRAL_SETTINGS"],
+        training_settings=settings["TRAIN"]["TRAINING_SETTINGS"],
+        model_dir=settings["TRAIN"]["MODEL_DIR"],
+        seed=settings["GENERAL"]["SEED"],
+    )
 
 if args.predict:
-    predict.run()
+    predict.run(
+        predict_dir=settings["PREDICT"]["PREDICT_DIR"],
+    )
 
 if args.test:
     test.run()
