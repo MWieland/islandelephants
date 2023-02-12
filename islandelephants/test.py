@@ -2,43 +2,48 @@ import matplotlib.pyplot as plt
 
 from koogu import recognize, assessments
 
+from .utils import audio_to_annotations
 
-def run():
-    # The root directories under which the test data (audio files and
-    # corresponding annotation files) are available.
-    test_audio_root = "/home/shyam/projects/NARW/data/test_audio"
-    test_annots_root = "/home/shyam/projects/NARW/data/test_annotations"
-    model_dir = None
 
-    # Map audio files to corresponding annotation files
-    test_audio_annot_list = [
-        ["NOPP6_EST_20090401", "NOPP6_20090401_RW_upcalls.selections.txt"],
-        ["NOPP6_EST_20090402", "NOPP6_20090402_RW_upcalls.selections.txt"],
-        ["NOPP6_EST_20090403", "NOPP6_20090403_RW_upcalls.selections.txt"],
-    ]
-
-    # Directory in which raw detection scores will be saved
-    raw_detections_root = "/home/shyam/projects/NARW/test_audio_raw_detections"
-
-    # run the model and save the class probabilities
+def run(
+    audio_dir,
+    annotations_dir,
+    audio_to_annotations_csv,
+    model_dir,
+    out_dir,
+    batch_size,
+    label_column_name,
+    negative_class_label,
+):
+    # predict on audio_dir and save the class probabilities
     recognize(
-        model_dir,
-        test_audio_root,
-        raw_detections_dir=raw_detections_root,
-        batch_size=64,
+        model_dir=model_dir,
+        audio_root=audio_dir,
+        output_dir=None,
+        raw_detections_dir=out_dir,
+        batch_size=batch_size,
         recursive=True,
         show_progress=True,
     )
 
-    # Initialize a metric object with the above info
-    metric = assessments.PrecisionRecall(test_audio_annot_list, raw_detections_root, test_annots_root)
+    # map audio files to annotation files
+    audio_to_annotations_list = audio_to_annotations(
+        audio_to_annotations_csv=audio_to_annotations_csv, audio_dir=audio_dir, annotations_dir=annotations_dir
+    )
 
-    # The metric supports several options (including setting explicit thresholds).
-    # Refer to class documentation for more details.
-    # Run the assessments and gather results
+    # initialize a metric
+    metric = assessments.PrecisionRecall(
+        audio_annot_list=audio_to_annotations_list,
+        raw_results_root=out_dir,
+        annots_root=annotations_dir,
+        label_column_name=label_column_name,
+        negative_class_label=negative_class_label,
+    )
+
+    # run the accuracy assessments
     per_class_pr, overall_pr = metric.assess()
 
-    # Plot PR curves.
+    # plot per class precision recall curves
     for class_name, pr in per_class_pr.items():
         plt.plot(pr["recall"], pr["precision"], "rd-")
         plt.title(f"Precision Recall Curve ({class_name}")
@@ -47,4 +52,5 @@ def run():
         plt.grid()
         plt.show()
 
-    # Similarly, you could plot the contents of 'overall_pr' too
+    # TODO: save plot to file and add auc metric with best threshold
+    # TODO: save metric results to file

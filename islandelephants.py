@@ -24,7 +24,7 @@ audio recordings of elephant sounds.
 parser.add_argument(
     "--settings",
     help=f"Path to YAML file with settings",
-    required=False,
+    required=True,
 )
 
 parser.add_argument(
@@ -99,13 +99,22 @@ if args.train:
         seed=settings["GENERAL"]["SEED"],
     )
 
+if args.test:
+    test.run(
+        audio_dir=settings["TEST"]["AUDIO_DIR"],
+        annotations_dir=settings["TEST"]["ANNOTATIONS_DIR"],
+        audio_to_annotations_csv=settings["TEST"]["AUDIO_TO_ANNOTATIONS_CSV"],
+        model_dir=settings["TEST"]["MODEL_DIR"],
+        out_dir=settings["TEST"]["OUT_DIR"],
+        batch_size=settings["TEST"]["BATCH_SIZE"],
+        label_column_name=settings["TEST"]["LABEL_COLUMN_NAME"],
+        negative_class_label=settings["TEST"]["NEGATIVE_CLASS_LABEL"],
+    )
+
 if args.predict:
     predict.run(
         predict_dir=settings["PREDICT"]["PREDICT_DIR"],
     )
-
-if args.test:
-    test.run()
 
 endtime = datetime.datetime.now()
 logging.info("Endtime : " + str(endtime.strftime("%H:%M:%S")))

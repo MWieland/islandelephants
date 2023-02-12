@@ -43,6 +43,7 @@ def run(
     )
 
     # plot learning curves
+    # TODO: add grid and legend
     fig, ax = plt.subplots(2, sharex=True, figsize=(12, 9))
     ax[0].plot(
         history["train_epochs"],
