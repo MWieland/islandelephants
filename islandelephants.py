@@ -14,9 +14,8 @@ parser = argparse.ArgumentParser(
 | |{ {__  | |    / {} \ |  `| || {}  \   | {_  | |   | {_  | {}  }| {_} | / {} \ |  `| |{_   _}{ {__  
 | |.-._} }| `--./  /\  \| |\  ||     /   | {__ | `--.| {__ | .--' | { } |/  /\  \| |\  |  | |  .-._} }
 `-'`----' `----'`-'  `-'`-' `-'`----'    `----'`----'`----'`-'    `-' `-'`-'  `-'`-' `-'  `-'  `----' 
-islandelephants provides routines for audio classification. Currently we use Koogu (Tensorflow) for this. 
-Modules for data preparation, training, prediction and testing are provided. Focus is on working with 
-audio recordings of elephant sounds. 
+islandelephants provides routines for audio classification. Modules for data preparation, training, 
+testing and prediction are provided. Focus is on working with audio recordings of elephant sounds. 
 """,
     formatter_class=argparse.RawTextHelpFormatter,
 )

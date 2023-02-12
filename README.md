@@ -1,5 +1,5 @@
 # islandelephants
-Package description.
+[islandelephants]() provides routines for audio classification. Modules for data preparation, training, testing and prediction are provided. Focus is on working with audio recordings of elephant sounds.
 
 > NOTE: This is work in progress and not ready to be used yet.
 
