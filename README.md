@@ -44,7 +44,6 @@ $ python islandelephants.py --predict --settings settings.yaml
 ```
 
 ## Sumatran elephants dataset
-Source: https://drive.google.com/drive/folders/1ofY7hXVFbogLQTukxNy5FQx0qL1oUWXs
 
 
 ## Installation
