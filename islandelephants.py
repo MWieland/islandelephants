@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import logging
+import tensorflow as tf
 import yaml
 
 from pathlib import Path
@@ -69,7 +70,14 @@ logging.basicConfig(
     level=settings["GENERAL"]["LOGLEVEL"],
 )
 
-utils.set_deterministic(settings["GENERAL"]["SEED"])
+if tf.config.list_physical_devices("GPU"):
+    logging.info(f"Using available GPU (found {len(tf.config.list_physical_devices('GPU'))} GPUs)")
+else:
+    logging.info("Using CPU only (found no compatible GPU)")
+
+if settings["GENERAL"]["DETERMINISTIC"]:
+    logging.info("Setting deterministic mode")
+    utils.set_deterministic(settings["GENERAL"]["SEED"])
 
 starttime = datetime.datetime.now()
 logging.info("Starttime: " + str(starttime.strftime("%H:%M:%S")))

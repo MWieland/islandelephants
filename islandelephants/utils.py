@@ -1,13 +1,20 @@
 import csv
 import logging
+import os
+import numpy as np
 import random
-
+import tensorflow as tf
 from pathlib import Path
 
 
 def set_deterministic(seed):
-    # TODO: expand this method to fix all randomness
+    # set deterministic behaviour for reproducible experiments
+    # TODO: check that this covers all random aspects
     random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    os.environ["TF_DETERMINISTIC_OPS"] = "1"
+    np.random.seed(seed)
+    tf.random.set_seed(seed)
 
 
 def audio_to_annotations(audio_to_annotations_csv, audio_dir, annotations_dir):

@@ -2,6 +2,7 @@ GENERAL:
   LOGFILE: null
   LOGLEVEL: "INFO"
   SEED: 666
+  DETERMINISTIC: true
 
 PREPARE:
   AUDIO_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/audio"
@@ -11,14 +12,14 @@ PREPARE:
   LABEL_COLUMN_NAME: "tag"
   NEGATIVE_CLASS_LABEL: "background"
   AUDIO_SETTINGS: 
-    clip_length: 2.0 
-    clip_advance: 0.5 
-    desired_fs: 1000
+    clip_length: 5.0  # length of clips
+    clip_advance: 2.5 # overlap of clips in seconds
+    desired_fs: 1000  # sampling frequency
   SPECTRAL_SETTINGS:
     win_len: 0.128
-    win_overlap_prc: 0.75
-    bandwidth_clip: [46, 391]
-    # num_mels: 60
+    win_overlap_prc: 0.5
+    bandwidth_clip: [15, 200] # lower and upper bounds to clip bandwidth
+    # num_mels: 60  # uncomment to use mel spectrograms
   TRAIN_TEST_SPLIT: [0.8, 0.2]  # if null dataset is not split
 
 TRAIN:

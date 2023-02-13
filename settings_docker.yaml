@@ -1,0 +1,53 @@
+GENERAL:
+  LOGFILE: null
+  LOGLEVEL: "INFO"
+  SEED: 666
+  DETERMINISTIC: true
+
+PREPARE:
+  AUDIO_DIR: "/scratch/audio"
+  ANNOTATIONS_DIR: "/scratch/annotations"
+  AUDIO_TO_ANNOTATIONS_CSV: "/scratch/sclts_to_wav.csv"
+  OUT_DIR: "/scratch/prepared"
+  LABEL_COLUMN_NAME: "tag"
+  NEGATIVE_CLASS_LABEL: "background"
+  AUDIO_SETTINGS: 
+    clip_length: 2.0 
+    clip_advance: 0.5 
+    desired_fs: 1000
+  SPECTRAL_SETTINGS:
+    win_len: 0.128
+    win_overlap_prc: 0.75
+    bandwidth_clip: [46, 391]
+    # num_mels: 60
+  TRAIN_TEST_SPLIT: [0.8, 0.2]  # if null dataset is not split
+
+TRAIN:
+  TRAIN_DIR: "/scratch/prepared/train"
+  VALIDATION_SPLIT: 0.2
+  MAX_SAMPLES_PER_CLASS: 20000
+  TRAINING_SETTINGS: 
+    batch_size: 64
+    epochs: 3
+    learning_rate: 0.001
+    # lr_change_at_epochs: [10, 20]
+    # lr_update_factors: [1.0, 0.1, 0.01]
+    dropout_rate: 0.05
+    l2_weight_decay: 0.0001
+    optimizer: ["Adam", {}]
+    weighted_loss: true
+    epochs_between_evals: 1   # defaults to 5
+  MODEL_DIR: "/scratch/models"
+
+TEST:
+  AUDIO_DIR: "/scratch/models/test/in"
+  ANNOTATIONS_DIR: "/scratch/annotations"
+  AUDIO_TO_ANNOTATIONS_CSV: "/scratch/prepared/test/audio_to_annotations.csv"
+  MODEL_DIR: "/scratch/models"
+  OUT_DIR: "/scratch/models/test"
+  BATCH_SIZE: 64
+  LABEL_COLUMN_NAME: "tag"
+  NEGATIVE_CLASS_LABEL: "background"
+
+PREDICT:
+  PREDICT_DIR: "/scratch/prepared/test"

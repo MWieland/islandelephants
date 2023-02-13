@@ -1,17 +1,17 @@
 # islandelephants
-[islandelephants]() provides routines for audio classification. Modules for data preparation, training, testing and prediction are provided. Focus is on working with audio recordings of elephant sounds.
+[islandelephants]() provides modules for data preparation, training, testing and prediction of animal sounds in audio recordings. Focus is on working with recordings of elephant sounds.
 
 > NOTE: This is work in progress and not ready to be used yet.
 
 ## Usage
-Simple command line tool.
+Simple command line tool. To get help call the following.
 
 ```shell
 $ python islandelephants.py --help
 ```
 
 ### Prepare dataset
-This prepares a dataset for training and audio classifier to detect animal (here elephant) sounds in audio files. We currently support audio files in [Wav]() format and annotations in [Raven]() format. The following steps are covered by dataset preparation.
+This prepares a dataset for training an audio classifier to detect animal (here elephant) sounds in audio files. We currently support audio files in [Wav]() format and annotations in [Raven]() format. The following steps are covered by dataset preparation.
 
 - Ignore samples for which no annotation or audio file could be found
 - Randomly split dataset into training and testing (80 / 20) with fixed seed
@@ -46,12 +46,29 @@ $ python islandelephants.py --predict --settings settings.yaml
 ## Sumatran elephants dataset
 Source: https://drive.google.com/drive/folders/1ofY7hXVFbogLQTukxNy5FQx0qL1oUWXs
 
+
 ## Installation
-To use [islandelephants]() with GPU support check [here](https://www.tensorflow.org/install/source#tested_build_configurations) for Python and Tensorflow versions that match your CUDA and CUDNN versions. Minimum requirements are tensorflow>=2.4.0 and therefore cuda>=11 and cudnn>=8.
+
+### Docker
+To avoid any issues with dependencies regarding Tensorflow, CUDA and cudnn we recommend running [islandelephants]() with [Docker](https://docs.docker.com/config/containers/resource_constraints/#gpu). Build a Docker image by running the following command.
+
+```shell
+$ docker build -f islandelephants.Dockerfile --tag islandelephants --network=host .
+```
+
+Once installed you can execute the Docker image as follows (example for training). Make sure to mount a local directory as volume. The directory should contain all required data (e.g. training audio and annotation files, settings_docker.yaml).
+
+```shell
+$ docker run --gpus '"device=0"' --shm-size 30G -d --name islandelephants_train --network=host --rm -v /my/local/data/dir/:/scratch/ islandelephants --train --settings /scratch/settings_docker.yaml
+```
+
+### Conda
+Alternative to running [islandelephants]() with Docker is to create a virtual environment with [Conda](https://docs.conda.io/en/latest/miniconda.html). To use Tensorflow with GPU support check [here](https://www.tensorflow.org/install/source#tested_build_configurations) for Python and Tensorflow versions that match your CUDA and CUDNN versions. Minimum requirements are tensorflow>=2.4.0 and therefore cuda>=11 with cudnn>=8.
 
 Example installation with conda environment
 ```shell
 $ conda create -n islandelephants python=3.10
+$ conda activate islandelephants
 $ conda install -c conda-forge cudatoolkit cudnn
 $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
 $ pip install tensorflow koogu pyaml matplotlib
