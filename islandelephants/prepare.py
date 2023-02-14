@@ -40,16 +40,10 @@ def run(
         audio_to_annotations_lists = [audio_to_annotations_list]
 
     # TODO: remove this block - only temporary to test with few samples
-    # audio_to_annotations_lists[0] = audio_to_annotations_lists[0][:3]
-    # audio_to_annotations_lists[1] = audio_to_annotations_lists[1][:2]
+    audio_to_annotations_lists[0] = audio_to_annotations_lists[0][:3]
+    audio_to_annotations_lists[1] = audio_to_annotations_lists[1][:2]
 
     for i in range(len(out_dirs)):
-        # save prepared audio_to_annotations_lists
-        with open(Path(out_dirs[i]) / Path("audio_to_annotations.csv"), "w") as f:
-            csv_writer = csv.writer(f)
-            csv_writer.writerow(["audio", "annotations"])
-            csv_writer.writerows(audio_to_annotations_lists[i])
-
         # do the actual preprocessing
         clip_counts = preprocess.from_selection_table_map(
             audio_settings=audio_settings,
@@ -61,3 +55,9 @@ def run(
             label_column_name=label_column_name,
         )
         [logging.info(f"{label:<10s}: {count:d}") for label, count in clip_counts.items()]
+
+        # save prepared audio_to_annotations_lists
+        with open(Path(out_dirs[i]) / Path("audio_to_annotations.csv"), "w") as f:
+            csv_writer = csv.writer(f)
+            csv_writer.writerow(["audio", "annotations"])
+            csv_writer.writerows(audio_to_annotations_lists[i])

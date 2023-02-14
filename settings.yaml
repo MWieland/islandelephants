@@ -13,8 +13,8 @@ PREPARE:
   NEGATIVE_CLASS_LABEL: "background"
   AUDIO_SETTINGS: 
     clip_length: 5.0  # length of clips
-    clip_advance: 2.5 # overlap of clips in seconds
-    desired_fs: 1000  # sampling frequency
+    clip_advance: 4.0 # overlap of clips in seconds
+    desired_fs: 16000  # sampling frequency
   SPECTRAL_SETTINGS:
     win_len: 0.128
     win_overlap_prc: 0.5
@@ -26,6 +26,7 @@ TRAIN:
   TRAIN_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/prepared/train"
   VALIDATION_SPLIT: 0.2
   MAX_SAMPLES_PER_CLASS: 20000
+  NORMALIZE_SAMPLES: true
   TRAINING_SETTINGS: 
     batch_size: 64
     epochs: 3

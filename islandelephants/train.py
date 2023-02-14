@@ -10,6 +10,7 @@ def run(
     train_dir,
     validation_split,
     max_samples_per_class,
+    normalize_samples,
     audio_settings,
     spectral_settings,
     training_settings,
@@ -23,6 +24,8 @@ def run(
         spec_settings=spectral_settings,
         validation_split=validation_split,
         max_clips_per_class=max_samples_per_class,
+        normalize_clips=normalize_samples,
+        random_state_seed=seed,
     )
 
     # define model and customize
