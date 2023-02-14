@@ -13,12 +13,12 @@ PREPARE:
   NEGATIVE_CLASS_LABEL: "background"
   AUDIO_SETTINGS: 
     clip_length: 5.0  # length of clips
-    clip_advance: 2.5 # overlap of clips in seconds
-    desired_fs: 1000  # sampling frequency
+    clip_advance: 4.0 # overlap of clips in seconds
+    desired_fs: 16000  # sampling frequency
   SPECTRAL_SETTINGS:
-    win_len: 0.128
+    win_len: 0.032
     win_overlap_prc: 0.5
-    bandwidth_clip: [15, 200] # lower and upper bounds to clip bandwidth
+    # bandwidth_clip: [15, 200] # lower and upper bounds to clip bandwidth
     # num_mels: 60  # uncomment to use mel spectrograms
   TRAIN_TEST_SPLIT: [0.8, 0.2]  # if null dataset is not split
 
@@ -26,6 +26,7 @@ TRAIN:
   TRAIN_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/prepared/train"
   VALIDATION_SPLIT: 0.2
   MAX_SAMPLES_PER_CLASS: 20000
+  NORMALIZE_SAMPLES: true
   TRAINING_SETTINGS: 
     batch_size: 64
     epochs: 3
@@ -37,7 +38,7 @@ TRAIN:
     optimizer: ["Adam", {}]
     weighted_loss: true
     epochs_between_evals: 1   # defaults to 5
-  MODEL_DIR: "/users/wiel_mc/Workspace/python/islandelephants/models"
+  MODEL_DIR: "/users/wiel_mc/Workspace/python/islandelephants/models/exp1_spectrogram"
 
 TEST:
   AUDIO_DIR: "/users/wiel_mc/Workspace/python/islandelephants/models/test/in"
