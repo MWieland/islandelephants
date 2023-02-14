@@ -40,8 +40,8 @@ def run(
         audio_to_annotations_lists = [audio_to_annotations_list]
 
     # TODO: remove this block - only temporary to test with few samples
-    audio_to_annotations_lists[0] = audio_to_annotations_lists[0][:3]
-    audio_to_annotations_lists[1] = audio_to_annotations_lists[1][:2]
+    # audio_to_annotations_lists[0] = audio_to_annotations_lists[0][:3]
+    # audio_to_annotations_lists[1] = audio_to_annotations_lists[1][:2]
 
     for i in range(len(out_dirs)):
         # do the actual preprocessing
@@ -61,3 +61,5 @@ def run(
             csv_writer = csv.writer(f)
             csv_writer.writerow(["audio", "annotations"])
             csv_writer.writerows(audio_to_annotations_lists[i])
+
+        # TODO: save summary report (clip_counts + audio settings + seed)
