@@ -41,11 +41,11 @@ TRAIN:
   MODEL_DIR: "/users/wiel_mc/Workspace/python/islandelephants/models/exp1_spectrogram"
 
 TEST:
-  AUDIO_DIR: "/users/wiel_mc/Workspace/python/islandelephants/models/test/in"
-  ANNOTATIONS_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/annotations"
+  AUDIO_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/prepared/test/audio"
+  ANNOTATIONS_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/prepared/test/annotations"
   AUDIO_TO_ANNOTATIONS_CSV: "/media/datadrive/Datasets/referencedata/islandelephants/prepared/test/audio_to_annotations.csv"
-  MODEL_DIR: "/users/wiel_mc/Workspace/python/islandelephants/models"
-  OUT_DIR: "/users/wiel_mc/Workspace/python/islandelephants/models/test"
+  MODEL_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/models"
+  OUT_DIR: "/media/datadrive/Datasets/referencedata/islandelephants/evaluation"
   BATCH_SIZE: 64
   LABEL_COLUMN_NAME: "tag"
   NEGATIVE_CLASS_LABEL: "background"
