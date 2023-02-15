@@ -41,11 +41,11 @@ TRAIN:
   MODEL_DIR: "/scratch/models"
 
 TEST:
-  AUDIO_DIR: "/scratch/models/test/in"
-  ANNOTATIONS_DIR: "/scratch/annotations"
+  AUDIO_DIR: "/scratch/prepared/test/audio"
+  ANNOTATIONS_DIR: "/scratch/prepared/test/annotations"
   AUDIO_TO_ANNOTATIONS_CSV: "/scratch/prepared/test/audio_to_annotations.csv"
   MODEL_DIR: "/scratch/models"
-  OUT_DIR: "/scratch/models/test"
+  OUT_DIR: "/scratch/evaluation"
   BATCH_SIZE: 64
   LABEL_COLUMN_NAME: "tag"
   NEGATIVE_CLASS_LABEL: "background"

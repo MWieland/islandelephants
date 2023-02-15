@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 from koogu import recognize, assessments
+from pathlib import Path
 
 from .utils import audio_to_annotations
 
@@ -43,14 +44,17 @@ def run(
     # run the accuracy assessments
     per_class_pr, overall_pr = metric.assess()
 
-    # plot per class precision recall curves
-    for class_name, pr in per_class_pr.items():
-        plt.plot(pr["recall"], pr["precision"], "rd-")
-        plt.title(f"Precision Recall Curve ({class_name}")
-        plt.xlabel("Recall")
-        plt.ylabel("Precision")
-        plt.grid()
-        plt.show()
-
-    # TODO: save plot to file and add auc metric with best threshold
-    # TODO: save metric results to file
+    # plot per precision recall curves (per class and overall)
+    # TODO: add auc metric with best threshold
+    colors = ["red", "green"]
+    for i, item in enumerate(per_class_pr.items()):
+        class_name, pr = item
+        plt.plot(pr["recall"], pr["precision"], color=colors[i], label=class_name)
+    plt.plot(overall_pr["recall"], overall_pr["precision"], color="blue", label="overall")
+    plt.title(f"Precision Recall Curve")
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.legend()
+    plt.grid()
+    plt.savefig(Path(out_dir) / Path("precision_recall_curve.png"), dpi=150)
+    plt.close()
