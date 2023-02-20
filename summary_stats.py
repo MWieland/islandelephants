@@ -4,10 +4,10 @@ import pandas as pd
 from pathlib import Path
 
 
-def plot_clip_length_per_sound_category(df, plot_name, figsize):
+def plot_clip_length_per_sound_category(dataframe, plot_name, figsize):
     # plots distribution and summary statistics of clip_length per sound_category
-    df["clip_length"] = df["End Time (s)"] - df["Begin Time (s)"]
-    df_length = df.filter(items=["clip_length", "sound_type"])
+    dataframe["clip_length"] = dataframe["End Time (s)"] - dataframe["Begin Time (s)"]
+    df_length = dataframe.filter(items=["clip_length", "sound_type"])
     boxplot = df_length.boxplot(column="clip_length", by="sound_type", figsize=figsize)
     plt.suptitle("Clip length per sound type")
     boxplot.set_ylabel("clip length [s]")
@@ -17,7 +17,7 @@ def plot_clip_length_per_sound_category(df, plot_name, figsize):
     boxplot.yaxis.grid(color="gray", linestyle="dashed")
     boxplot.xaxis.grid(False)
     # calculate and plot number of observations per group
-    df2 = df.groupby(["sound_type"])["clip_length"].count()
+    df2 = dataframe.groupby(["sound_type"])["clip_length"].count()
     nobs = [f"n: {str(x)}" for x in df2.tolist()]
     pos = range(len(nobs))
     for tick, label in zip(pos, boxplot.get_xticklabels()):
@@ -36,12 +36,14 @@ def plot_clip_length_per_sound_category(df, plot_name, figsize):
     plt.close()
     print(
         f"Clip length (overall): "
-        f"{round(df['clip_length'].mean(), 2)} (mean) | "
-        f"{round(df['clip_length'].std(), 2)} (std) | "
-        f"{round(df['clip_length'].median(), 2)} (median) | "
-        f"{round(df['clip_length'].min(), 2)} (min) | "
-        f"{round(df['clip_length'].max(), 2)} (max)"
+        f"{round(dataframe['clip_length'].mean(), 2)} (mean) | "
+        f"{round(dataframe['clip_length'].std(), 2)} (std) | "
+        f"{round(dataframe['clip_length'].median(), 2)} (median) | "
+        f"{round(dataframe['clip_length'].min(), 2)} (min) | "
+        f"{round(dataframe['clip_length'].max(), 2)} (max)"
     )
+    dataframe = None
+    df2 = None
 
 
 # user settings #######################################################################################
