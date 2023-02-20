@@ -30,7 +30,8 @@ def run(
     )
 
     # define model and customize
-    model = architectures.DenseNet(layers_per_block=[4, 8, 8, 4], growth_rate=12)
+    # model = architectures.DenseNet(layers_per_block=[4, 8, 8, 4], growth_rate=12)
+    model = architectures.DenseNet(layers_per_block=[4, 4, 4], preproc=[("Conv2D", {"filters": 16})], dense_layers=[32])
 
     # perform training
     history = train(
