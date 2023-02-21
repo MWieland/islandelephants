@@ -4,21 +4,6 @@
 > NOTE: This is work in progress and not ready to be used yet.
 
 
-
-# TODO:
-0. get latest data from aws
-
-1. explorative analysis of selection tables 
--> combine all into one pandas df
--> get min,max,mean,std,med clip_length -> find AUDIO_SETTING for clip_length (+ use 75% overlap between clips and fs 1000 accoridng to ED)
--> get min,max,mean,std,med MINFREQ and MAXFREQ -> find SPECTRAL_SETTING for bandwidth_clip (+ test visually win_length and win_overlap_prc)
-
-2. explorative analysis of waveforms and spectrograms
--> plot large number of positive samples with waveform and spectrogram -> can we visually see patterns?
--> plot large number of negative samples with waveform and spectrogram -> are these clearly different from positive samples?
-
-
-
 ## Usage
 Simple command line tool. To get help call the following.
 
