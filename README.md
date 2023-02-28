@@ -3,7 +3,6 @@
 
 > NOTE: This is work in progress and not ready to be used yet.
 
-
 ## Usage
 Simple command line tool. To get help call the following.
 
@@ -59,7 +58,7 @@ $ docker build -f islandelephants.Dockerfile --tag islandelephants --network=hos
 Once installed you can execute the Docker image as follows (example for training). Make sure to mount a local directory as volume. The directory should contain all required data (e.g. training audio and annotation files, settings_docker.yaml).
 
 ```shell
-$ docker run --gpus '"device=0"' --shm-size 30G -d --name islandelephants_train --network=host --rm -v /my/local/data/dir/:/scratch/ islandelephants --train --settings /scratch/settings_docker.yaml
+$ docker run --gpus '"device=0"' --shm-size 30G --name islandelephants_train --network=host --rm -v /my/local/data/dir/:/scratch/ islandelephants --train --settings /scratch/settings_docker.yaml
 ```
 
 ### Conda
