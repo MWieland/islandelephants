@@ -6,12 +6,11 @@
 
 
 # TODO:
-0. get latest data from aws
-
-1. explorative analysis of selection tables 
--> combine all into one pandas df
--> get min,max,mean,std,med clip_length -> find AUDIO_SETTING for clip_length (+ use 75% overlap between clips and fs 1000 accoridng to ED)
--> get min,max,mean,std,med MINFREQ and MAXFREQ -> find SPECTRAL_SETTING for bandwidth_clip (+ test visually win_length and win_overlap_prc)
+- [x] 0. get latest data from aws
+- [x] 1. explorative analysis of selection tables 
+- [x] -> combine all into one pandas df
+- [x] -> get min,max,mean,std,med clip_length -> find AUDIO_SETTING for clip_length (+ use 75% overlap between clips and fs 1000 accoridng to ED)
+- [x] -> get min,max,mean,std,med MINFREQ and MAXFREQ -> find SPECTRAL_SETTING for bandwidth_clip (+ test visually win_length and win_overlap_prc)
 
 2. explorative analysis of waveforms and spectrograms
 -> plot large number of positive samples with waveform and spectrogram -> can we visually see patterns?
@@ -74,7 +73,7 @@ $ docker build -f islandelephants.Dockerfile --tag islandelephants --network=hos
 Once installed you can execute the Docker image as follows (example for training). Make sure to mount a local directory as volume. The directory should contain all required data (e.g. training audio and annotation files, settings_docker.yaml).
 
 ```shell
-$ docker run --gpus '"device=0"' --shm-size 30G -d --name islandelephants_train --network=host --rm -v /my/local/data/dir/:/scratch/ islandelephants --train --settings /scratch/settings_docker.yaml
+$ docker run --gpus '"device=0"' --shm-size 30G --name islandelephants_train --network=host --rm -v /my/local/data/dir/:/scratch/ islandelephants --train --settings /scratch/settings_docker.yaml
 ```
 
 ### Conda
